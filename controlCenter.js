@@ -81,17 +81,110 @@ function mainMenu(button, switching){
     }
 }
 
-function mainMenu0(button, switching){
+function mainMenu0(button, switching){ //Current time is currently being displayed.
     //    loopText(["mainMenu0"],1000);
     switch(button){
     case "leftShort":
-	loopText(["leftShort"]);
+	loopText("CLOCK",1000);
+	menuState = [0,1];
 	break;
     case "leftLong":
-	loopText(["leftLong"]);
+	loopText("leftLong",1000);
+	clearInterval(globalState.currentTextInterval);
+	menuState = [0,0]
+	setTimeout(currentTimeLoop, 1000);
 	break;
     case "right":
-	loopText(["right"]);
+	loopText("CLOCK",1000);
+	menuState = [0,1];
+	break;
+    }
+}
+
+function mainMenu1(button, switching){ //CLOCK text is currently being displayed.
+    switch(button){
+    case "leftShort":
+	loopText("TIMER",1000);
+	menuState = [0,2];
+	break;
+    case "leftLong":
+	loopText("leftLong",1000);
+	clearInterval(globalState.currentTextInterval);
+	menuState = [0,0];
+	setTimeout(currentTimeLoop, 1000);
+	break;
+    case "right":
+	loopText("right",1000);
+	clearInterval(globalState.currentTextInterval);
+	menuState = [0,0];
+	setTimeout(currentTimeLoop, 1000);
+	break;
+    }
+}
+
+function mainMenu2(button, switching){ //TIMER text is currently being displayed.
+    switch(button){
+    case "leftShort":
+	loopText("CHESS",1000);
+	menuState = [0,3];
+	break;
+    case "leftLong":
+	loopText("leftLong",1000);
+	clearInterval(globalState.currentTextInterval);
+	menuState = [0,0];
+	setTimeout(currentTimeLoop, 1000);
+	break;
+    case "right": // BUGGED
+	loopText("right",1000);
+	clearInterval(globalState.currentTextInterval);
+	menuState = [1,0];
+	writeTimer(ctx,0);
+	break;
+    }
+}
+
+function mainMenu3(button, switching){ //CHESS text is currently being displayed.
+    switch(button){
+    case "leftShort":
+	loopText("OVERWATCH",1000);
+	menuState = [0,4];
+	break;
+    case "leftLong":
+	loopText("leftLong",1000);
+	clearInterval(globalState.currentTextInterval);
+	menuState = [0,0];
+	setTimeout(currentTimeLoop, 1000);
+	break;
+    case "right": // BUGGED
+	loopText("right",1000);
+	clearInterval(globalState.currentTextInterval);
+	menuState = [0,0];
+	loopText("notImplemented")
+	clearInterval(globalState.currentTextInterval);
+	setTimeout(currentTimeLoop, 1000);
+	break;
+    }
+}
+
+function mainMenu4(button, switching){ //OVERWATCH text is currently being displayed.
+    switch(button){
+    case "leftShort":
+	loopText("CLOCK",1000);
+	menuState = [0,1];
+	break;
+    case "leftLong":
+	loopText("leftLong",1000);
+	clearInterval(globalState.currentTextInterval);
+	menuState = [0,0];
+	setTimeout(currentTimeLoop, 1000);
+	break;
+    case "right": // BUGGED
+	loopText("right",1000);
+	clearInterval(globalState.currentTextInterval);
+	menuState = [0,0];
+	loopText("notImplemented");
+	clearInterval(globalState.currentTextInterval);
+	setTimeout(currentTimeLoop, 1000);
 	break;
     }
 }

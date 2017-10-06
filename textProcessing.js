@@ -35,11 +35,14 @@ function displayText(text){
 
 // Displays list of strings in a loop.
 function loopText(textList, milliseconds){ //textList = array of strings, milliseconds = int
+    if (typeof textList == "string"){
+	textList = [textList];
+    }
     clearInterval(globalState.currentTextInterval); //Clears any previous text display
     displayText(textList[0]); //Displays initial text to avoid interval delay.
     activeText = 1; //tracks next string to be displayed
     maxText = textList.length;
-
+    
     function innerLoopText(){
 	if (activeText >= maxText){
 	    activeText = 0;
