@@ -30,3 +30,22 @@ function fitTextOnCanvas(text,fontface){
 function displayText(text){
     fitTextOnCanvas(text, "Arial", 350);
 }
+
+
+
+// Displays list of strings in a loop.
+function loopText(textList, milliseconds){ //textList = array of strings, milliseconds = int
+    clearInterval(globalState.currentTextInterval); //Clears any previous text display
+    displayText(textList[0]); //Displays initial text to avoid interval delay.
+    activeText = 1; //tracks next string to be displayed
+    maxText = textList.length;
+
+    function innerLoopText(){
+	if (activeText >= maxText){
+	    activeText = 0;
+	}
+	displayText(textList[activeText]);
+	activeText += 1;
+    }
+    globalState.currentTextInterval = setInterval(innerLoopText, milliseconds);
+}

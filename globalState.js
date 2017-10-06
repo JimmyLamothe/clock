@@ -3,6 +3,8 @@
 var globalState = {
     interrupt : false,
     currentInterval : "",
+    switchInterval : "",
+    currentTextInterval : "",
     keyDown : false,
     keyUp : false,
     keyDownTime: 0,
