@@ -24,6 +24,9 @@ function alertButton(event){
 function interrupt(){
     globalState.interrupt = true;
     clearInterval(globalState.currentInterval);
+    clearInterval(globalState.currentTextInterval);
+    globalState.currentInterval = "";
+    globalState.currentTextInterval = "";
 }
 function returnLength(event){
     alert("keyUp");

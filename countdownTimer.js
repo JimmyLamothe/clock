@@ -1,5 +1,12 @@
 // Functions to set and start a countdown timer.
 
+function addSeconds(totalSeconds){
+    globalState.currentTimer += totalSeconds;
+    minutes = Math.floor(globalState.currentTimer / 60);
+    seconds = totalSeconds % 60;
+    writeTime(ctx, minutes, seconds);
+}
+
 function writeTimer(ctx, totalSeconds){
     clearInterval(globalState.currentInterval);
     minutes = Math.floor(totalSeconds / 60);
@@ -14,6 +21,7 @@ function writeTimer(ctx, totalSeconds){
 	clearInterval(globalState.currentInterval);
     }
 }
+
 function startTimer(ctx, seconds){
     globalState.interrupt = false;
     menuState = [1,0,0];

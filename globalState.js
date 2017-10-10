@@ -11,6 +11,8 @@ var globalState = {
     lastKeyUpTime : 0,
     keyDownCode : "",
     switching: false,
+    defaultTimer: 900,
+    currentTimer: 0
 };
 
 /*
