@@ -7,6 +7,8 @@ var globalState = {
     currentTextInterval : "",
     keyDown : false,
     keyUp : false,
+    mouseDown: false,
+    mouseUp: false,
     keyDownTime: 0,
     lastKeyUpTime : 0,
     keyDownCode : "",

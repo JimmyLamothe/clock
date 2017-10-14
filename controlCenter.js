@@ -4,6 +4,8 @@
 function startListeners(){
     document.addEventListener("keydown", processKeyDown, false); //Only one key at a time.
     document.addEventListener("keyup", processKeyUp, false); //Only one key at a time.
+    document.addEventListener("mousedown", processMouseDown, false);
+    document.addEventListener("mouseup", processMouseUp, false);
     globalState.switchInterval = setInterval(setSwitchBool, 100); //checks time since keypress
 }
 
