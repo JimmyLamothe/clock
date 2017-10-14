@@ -115,7 +115,8 @@ function mainMenu1(button, switching){ //CLOCK text is currently being displayed
 	//loopText("right",1000);
 	clearInterval(globalState.currentTextInterval);
 	menuState = [0,0];
-	setTimeout(currentTimeLoop, 1000);
+	interrupt();
+	currentTimeLoop();
 	break;
     }
 }
@@ -191,32 +192,35 @@ function timerMenu(button, switching){
     //  loopText(["TIMER"],1000);
     switch(menuState[1]){
     case 0: // Base state when starting switching. Current timer is being displayed.
-      	timerMenu0(button,switching);
+      	timerInit(button,switching);
 	break;
     case 1: // +5 MIN text is being displayed
-      	timerMenu1(button,switching);
+      	timer300Sec(button,switching);
 	break;
     case 2: // +1 MIN text is being displayed
-      	timerMenu2(button,switching);
+      	timer60Sec(button,switching);
 	break;
     case 3: // +30 SEC text is being displayed 
-      	timerMenu3(button,switching);
+      	timer30Sec(button,switching);
 	break;
     case 4: // +5 SEC text is being displayed
-      	timerMenu4(button,switching);
+      	timer5Sec(button,switching);
 	break;
     case 5: // +1 SEC text is being displayed
-      	timerMenu5(button,switching);
+      	timer1Sec(button,switching);
 	break;
-    case 6: // RESET text is being displayed
-      	timerMenu6(button,switching);
+    case 6: // START text is being displayed
+      	timerStart(button,switching);
 	break;
+    case 7: // RESET text is being displayed
+      	timerReset(button,switching);
+	break;     
     default:
 	alert("invalid menu state");
     }
 }
 
-function timerMenu0(button, switching){ //Current timer is being displayed.
+function timerInit(button, switching){ //Current timer is being displayed.
     //    loopText(["mainMenu0"],1000);
     switch(button){
     case "leftShort":
@@ -231,14 +235,13 @@ function timerMenu0(button, switching){ //Current timer is being displayed.
 	loopText("TIMER");
 	break;
     case "right":
-	alert(menuState);
 	menuState = [1,1];
 	addSeconds(300);
 	break;
     }
 }
 
-function timerMenu1(button, switching){ //+5 MIN text is being displayed
+function timer300Sec(button, switching){ //+5 MIN text is being displayed
     //    loopText(["mainMenu0"],1000);
     switch(button){
     case "leftShort":
@@ -253,13 +256,12 @@ function timerMenu1(button, switching){ //+5 MIN text is being displayed
 	loopText("TIMER");
 	break;
     case "right":
-	alert(menuState);
 	addSeconds(300);
 	break;
     }
 }
 
-function timerMenu2(button, switching){ //+1 MIN text is being displayed
+function timer60Sec(button, switching){ //+1 MIN text is being displayed
     //    loopText(["mainMenu0"],1000);
     switch(button){
     case "leftShort":
@@ -274,13 +276,12 @@ function timerMenu2(button, switching){ //+1 MIN text is being displayed
 	loopText("TIMER");
 	break;
     case "right":
-	alert(menuState);
 	addSeconds(60);
 	break;
     }
 }
 
-function timerMenu3(button, switching){ //+30 SEC text is being displayed.
+function timer30Sec(button, switching){ //+30 SEC text is being displayed.
     //    loopText(["mainMenu0"],1000);
     switch(button){
     case "leftShort":
@@ -295,13 +296,12 @@ function timerMenu3(button, switching){ //+30 SEC text is being displayed.
 	loopText("TIMER");
 	break;
     case "right":
-	alert(menuState);
 	addSeconds(30);
 	break;
     }
 }
 
-function timerMenu4(button, switching){ //+5 SEC text is being displayed.
+function timer5Sec(button, switching){ //+5 SEC text is being displayed.
     //    loopText(["mainMenu0"],1000);
     switch(button){
     case "leftShort":
@@ -316,17 +316,16 @@ function timerMenu4(button, switching){ //+5 SEC text is being displayed.
 	loopText("TIMER");
 	break;
     case "right":
-	alert(menuState);
 	addSeconds(5);
 	break;
     }
 }
 
-function timerMenu5(button, switching){ //+1 SEC text is being displayed.
+function timer1Sec(button, switching){ //+1 SEC text is being displayed.
     //    loopText(["mainMenu0"],1000);
     switch(button){
     case "leftShort":
-	loopText("RESET",1000);
+	loopText("START",1000);
 	menuState = [1,6];
 	break;
     case "leftLong":
@@ -337,13 +336,33 @@ function timerMenu5(button, switching){ //+1 SEC text is being displayed.
 	loopText("TIMER");
 	break;
     case "right":
-	alert(menuState);
 	addSeconds(1);
 	break;
     }
 }
 
-function timerMenu6(button, switching){ //RESET text is being displayed
+function timerStart(button, switching){ //START text is being displayed
+    //    loopText(["mainMenu0"],1000);
+    switch(button){
+    case "leftShort":
+	loopText("RESET",1000);
+	menuState = [1,7];
+	break;
+    case "leftLong":
+	//loopText("leftLong",1000);
+	clearInterval(globalState.currentTextInterval);
+	globalState.currentTimer = 0;
+	menuState = [0,2];
+	loopText("TIMER");
+	break;
+    case "right":
+	interrupt();
+	startTimer(ctx, globalState.currentTimer);
+	break;
+    }
+}
+
+function timerReset(button, switching){ //RESET text is being displayed
     //    loopText(["mainMenu0"],1000);
     switch(button){
     case "leftShort":
@@ -358,9 +377,9 @@ function timerMenu6(button, switching){ //RESET text is being displayed
 	loopText("TIMER");
 	break;
     case "right":
-	alert(menuState);
 	globalState.currentTimer = 0;
 	menuState = [1,0];
+	addSeconds(0); //HACK used to write timer
 	break;
     }
 }

@@ -3,7 +3,8 @@
 function addSeconds(totalSeconds){
     globalState.currentTimer += totalSeconds;
     minutes = Math.floor(globalState.currentTimer / 60);
-    seconds = totalSeconds % 60;
+    seconds = globalState.currentTimer % 60;
+    interrupt();
     writeTime(ctx, minutes, seconds);
 }
 
@@ -24,6 +25,6 @@ function writeTimer(ctx, totalSeconds){
 
 function startTimer(ctx, seconds){
     globalState.interrupt = false;
-    menuState = [1,0,0];
+    menuState = [0,0];
     writeTimer(ctx, seconds);
 }
